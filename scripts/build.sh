@@ -36,6 +36,7 @@ Available platforms:
   codex-cli     - OpenAI Codex CLI (AGENTS.md + .codex/commands/)
   gemini-cli    - Gemini CLI (GEMINI.md + .gemini/commands/)
   opencode      - OpenCode (AGENTS.md + .opencode/commands/)
+  kimi-cli      - Kimi Code CLI (native skill under .kimi/skills/)
 EOF
       exit 0
       ;;

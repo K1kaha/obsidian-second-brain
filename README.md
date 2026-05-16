@@ -1,18 +1,19 @@
 <p align="center">
   <a href="https://github.com/eugeniughelbur/obsidian-second-brain">
-    <img src="media/banner.png" alt="obsidian-second-brain — one brain, four CLIs, 33 commands. A cross-CLI skill for Obsidian that runs on Claude Code, Codex CLI, Gemini CLI, and OpenCode." width="100%" />
+    <img src="media/banner.png" alt="obsidian-second-brain — one brain, five CLIs, 33 commands. A cross-CLI skill for Obsidian that runs on Claude Code, Codex CLI, Gemini CLI, OpenCode, and Kimi Code CLI." width="100%" />
   </a>
 </p>
 
 <p align="center">
   <a href="#install"><img src="https://img.shields.io/badge/Claude_Code-D97757?style=for-the-badge&logo=anthropic&logoColor=white" alt="Claude Code" /></a>
-  <a href="#codex-cli--gemini-cli--opencode"><img src="https://img.shields.io/badge/Codex_CLI-412991?style=for-the-badge&logo=openai&logoColor=white" alt="Codex CLI" /></a>
-  <a href="#codex-cli--gemini-cli--opencode"><img src="https://img.shields.io/badge/Gemini_CLI-4285F4?style=for-the-badge&logo=googlegemini&logoColor=white" alt="Gemini CLI" /></a>
-  <a href="#codex-cli--gemini-cli--opencode"><img src="https://img.shields.io/badge/OpenCode-181818?style=for-the-badge&logo=opensourceinitiative&logoColor=white" alt="OpenCode" /></a>
+  <a href="#codex-cli--gemini-cli--opencode--kimi-code-cli"><img src="https://img.shields.io/badge/Codex_CLI-412991?style=for-the-badge&logo=openai&logoColor=white" alt="Codex CLI" /></a>
+  <a href="#codex-cli--gemini-cli--opencode--kimi-code-cli"><img src="https://img.shields.io/badge/Gemini_CLI-4285F4?style=for-the-badge&logo=googlegemini&logoColor=white" alt="Gemini CLI" /></a>
+  <a href="#codex-cli--gemini-cli--opencode--kimi-code-cli"><img src="https://img.shields.io/badge/OpenCode-181818?style=for-the-badge&logo=opensourceinitiative&logoColor=white" alt="OpenCode" /></a>
+  <a href="#codex-cli--gemini-cli--opencode--kimi-code-cli"><img src="https://img.shields.io/badge/Kimi_Code_CLI-000000?style=for-the-badge&logoColor=white" alt="Kimi Code CLI" /></a>
 </p>
 
 <p align="center">
-  <strong>One codebase. Four CLIs. Same brain.</strong>
+  <strong>One codebase. Five CLIs. Same brain.</strong>
 </p>
 
 <p align="center">
@@ -565,7 +566,7 @@ python bootstrap_vault.py --path ~/my-vault --name "Your Name" --style obsidian
 
 ## Install
 
-> **One codebase, four platforms.** Pick yours below. The vault behavior is identical across all four — only the install path and the dispatcher file (`CLAUDE.md` / `AGENTS.md` / `GEMINI.md`) differ.
+> **One codebase, five platforms.** Pick yours below. The vault behavior is identical across all five — only the install path and the dispatcher (`CLAUDE.md` / `AGENTS.md` / `GEMINI.md`, or a native skill on Kimi Code CLI) differ.
 
 ### Claude Code (default)
 
@@ -584,18 +585,20 @@ bash ~/.claude/skills/obsidian-second-brain/scripts/setup.sh "/path/to/your/vaul
 
 Then: `/obsidian-init`
 
-### Codex CLI / Gemini CLI / OpenCode
+### Codex CLI / Gemini CLI / OpenCode / Kimi Code CLI
 
 ```bash
 git clone https://github.com/eugeniughelbur/obsidian-second-brain
 cd obsidian-second-brain
-bash scripts/build.sh --platform codex-cli   # or gemini-cli, or opencode
+bash scripts/build.sh --platform codex-cli   # or gemini-cli, opencode, kimi-cli
 cp -R dist/codex-cli/. /path/to/your/vault/   # or .gemini-cli / .opencode/
 ```
 
 Then start your CLI from the vault root. Each build produces a platform-specific dispatcher (`AGENTS.md` for Codex / OpenCode, `GEMINI.md` for Gemini) with an **auto-generated routing table** mapping natural-language triggers to command files under `.codex/commands/` (or `.gemini/`, `.opencode/`).
 
-Run `bash scripts/build.sh` with no arguments to build all four platforms at once. See [`dist/<platform>/INSTALL.md`](scripts/build.sh) after building for platform-specific notes.
+Kimi Code CLI supports native Agent Skills, so its build ships `obsidian-second-brain` as a Kimi skill under `.kimi/skills/`, with the routing table baked into `SKILL.md`. Follow `dist/kimi-cli/INSTALL.md` for the skill and optional hook setup.
+
+Run `bash scripts/build.sh` with no arguments to build all five platforms at once. See [`dist/<platform>/INSTALL.md`](scripts/build.sh) after building for platform-specific notes.
 
 ### Research toolkit (optional)
 
@@ -636,8 +639,8 @@ An Obsidian plugin runs inside Obsidian and is written in TypeScript against Obs
 ### How do I add this Obsidian Claude skill to Claude Code?
 Run the one-line installer from the Install section below. It clones the repo to `~/.claude/skills/obsidian-second-brain` and symlinks the slash commands into `~/.claude/commands/` so Claude Code picks them up automatically. Restart Claude Code after install. The skill loads on every session that touches an Obsidian vault.
 
-### Does this work with Codex CLI, Gemini CLI, or OpenCode?
-Yes. The repo ships a build script that compiles the platform-neutral source into four platform-specific outputs: Claude Code (slash commands + `CLAUDE.md`), Codex CLI (`AGENTS.md` + `.codex/commands/`), Gemini CLI (`GEMINI.md` + `.gemini/commands/`), and OpenCode (`AGENTS.md` + `.opencode/commands/`). Run `bash scripts/build.sh --platform codex-cli` (or another platform name), then copy the resulting `dist/<platform>/` tree into your vault. The non-Claude builds auto-generate a routing table that maps natural-language triggers to command files, so the same 32 commands work no matter which CLI you use. The vault rules (AI-first notes, frontmatter, wikilinks, recency markers) are identical across all four platforms.
+### Does this work with Codex CLI, Gemini CLI, OpenCode, or Kimi Code CLI?
+Yes. The repo ships a build script that compiles the platform-neutral source into five platform-specific outputs: Claude Code (slash commands + `CLAUDE.md`), Codex CLI (`AGENTS.md` + `.codex/commands/`), Gemini CLI (`GEMINI.md` + `.gemini/commands/`), OpenCode (`AGENTS.md` + `.opencode/commands/`), and Kimi Code CLI (a native Agent Skill under `.kimi/skills/`). Run `bash scripts/build.sh --platform codex-cli` (or another platform name that has an adapter under `adapters/`: `gemini-cli`, `opencode`, `kimi-cli`), then copy the resulting `dist/<platform>/` tree into your vault. The non-Claude builds auto-generate a routing table that maps natural-language triggers to command files, so the same 32 commands work no matter which CLI you use. The vault rules (AI-first notes, frontmatter, wikilinks, recency markers) are identical across all five platforms.
 
 ### Does this work with Obsidian Sync?
 Yes. The skill writes to your vault as standard markdown files. Obsidian Sync, iCloud, Syncthing, and Git-based sync all work without modification.

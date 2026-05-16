@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Added
+
+- **Kimi Code CLI support — fifth platform.** New `adapters/kimi-cli/adapter.sh` compiles the platform-neutral source into a native Kimi Agent Skill at `dist/kimi-cli/.kimi/skills/obsidian-second-brain/`. Kimi Code CLI (Moonshot AI) natively discovers skills under `.kimi/skills/` and `~/.kimi/skills/`, so `obsidian-second-brain` installs as a first-class skill rather than a loose dispatcher file. Because Kimi has no user-defined slash commands, `SKILL.md` doubles as the dispatcher: it carries the auto-generated routing table and trigger reference (via the shared `emit_routing_table_grouped` / `emit_trigger_reference` helpers in `adapters/lib.sh`), and the agent matches natural-language triggers to command files under `commands/`. Tool-name references are neutralized and `.claude/` paths rewritten to `.kimi/`, same as the other non-Claude adapters. Layer 5 hooks are portable: the build ships `obsidian-bg-agent.sh` (rewritten from `claude -p` to Kimi's headless `kimi --print`) and `validate-ai-first.sh` under `.kimi/hooks/`, plus a ready-to-append `kimi-hooks.toml` snippet wiring them to Kimi's `PostCompact` and `PostToolUse` events. `scripts/build.sh` needed no changes — `discover_platforms()` picks up the new adapter automatically. `bash scripts/build.sh` now builds five platforms.
+
 ## [0.8.0] — 2026-05-15
 
 ### Added

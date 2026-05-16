@@ -213,6 +213,8 @@ Purpose: Silent vault updates during active sessions.
 
 Safety: Never deletes, archives, or merges. Only adds or updates.
 
+Cross-platform: the hook is portable to any CLI with a compatible PostCompact hook and a headless mode. The Kimi Code CLI build (`dist/kimi-cli/`) ships the same hook wired to Kimi's `PostCompact` event and `kimi --print` headless mode. Layer 4 scheduled agents still need an OS-level scheduler (cron, launchd, systemd) on non-Claude platforms.
+
 ---
 
 ## Vault Folder Structure
